@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>redStackPRO</title>
+<meta name="description" content="A visual canvas for red team infrastructure and cyber ranges. Compose a topology, export runnable Terraform and Ansible, and deploy it from your own machine.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://redstackpro.dev/">
+<meta property="og:title" content="redStackPRO">
+<meta property="og:description" content="A visual canvas for red team infrastructure and cyber ranges. Compose a topology, export runnable Terraform and Ansible, deploy it from your own machine.">
+<meta property="og:image" content="https://redstackpro.dev/banner-social.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="redStackPRO">
+<meta name="twitter:description" content="A visual canvas for red team infrastructure and cyber ranges.">
+<meta name="twitter:image" content="https://redstackpro.dev/banner-social.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: dark;
+    --bg:#000000;
+    --panel:#0B111E;
+    --panel-2:#0E1626;
+    --ink:#F4F7FB;
+    --mute:#93A1B5;
+    --neutral:#AEBED4;
+    --border:#2A3340;
+    --dzred:#CF2127;
+    --offense:#F05050;
+    --defense:#3B9EFF;
+    --sensor:#A97BFF;
+    --sans:'Archivo', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:24px}
+
+  /* --- nav --- */
+  header.nav{
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:10;
+    background:color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:16px;gap:16px}
+  .wordmark{font-family:var(--mono);font-weight:700;font-size:18px;letter-spacing:.02em;white-space:nowrap}
+  .wordmark .bk{color:var(--dzred)}
+  .nav-links{display:flex;gap:22px;align-items:center;font-size:14px}
+  .nav-links a{color:var(--neutral);text-decoration:none}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{
+    font-family:var(--mono);font-size:13px;font-weight:500;
+    border:1px solid var(--border);border-radius:6px;padding:8px 14px;
+    color:var(--ink);text-decoration:none;background:var(--panel);
+  }
+  .nav-cta:hover{border-color:var(--neutral)}
+  @media (max-width:620px){ .nav-links a:not(.nav-cta){display:none} }
+
+  /* --- hero --- */
+  .hero{padding-block:76px 40px}
+  .hero-banner{margin:0 0 30px}
+  .hero-banner img{width:100%;height:auto;border-radius:12px;border:1px solid var(--border)}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--neutral);
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--dzred);display:inline-block}
+  h1{
+    font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.04;
+    letter-spacing:-.02em;text-wrap:balance;margin:22px 0 0;max-width:16ch;
+  }
+  .lede{
+    color:var(--mute);font-size:clamp(16px,2.1vw,19px);line-height:1.65;
+    max-width:60ch;margin:22px 0 0;
+  }
+  .lede b{color:var(--ink);font-weight:600}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:34px}
+  .btn{
+    font-family:var(--sans);font-weight:600;font-size:15px;text-decoration:none;
+    padding:13px 22px;border-radius:8px;border:1px solid transparent;display:inline-flex;gap:9px;align-items:center;
+  }
+  .btn-primary{background:var(--ink);color:#05070B}
+  .btn-primary:hover{background:#fff}
+  .btn-ghost{border-color:var(--border);color:var(--ink);background:var(--panel)}
+  .btn-ghost:hover{border-color:var(--neutral)}
+  .btn svg{width:17px;height:17px}
+
+  /* copyable command */
+  .cmd{
+    display:flex;align-items:center;gap:12px;margin-top:22px;
+    font-family:var(--mono);font-size:13.5px;color:var(--ink);
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;
+    padding:12px 12px 12px 16px;max-width:560px;
+  }
+  .cmd .dollar{color:var(--sensor);user-select:none}
+  .cmd code{flex:1;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+  .cmd code::-webkit-scrollbar{display:none}
+  .copy{
+    font-family:var(--mono);font-size:12px;color:var(--neutral);background:var(--panel-2);
+    border:1px solid var(--border);border-radius:6px;padding:6px 10px;cursor:pointer;white-space:nowrap;
+  }
+  .copy:hover{color:var(--ink);border-color:var(--neutral)}
+
+  /* --- screenshot --- */
+  .shot{padding-block:56px 8px}
+  .shot-head{margin-bottom:32px}
+  .shot-fig{margin:0 0 36px}
+  .shot-fig:last-child{margin-bottom:0}
+  .shot-label{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:9px;margin-bottom:12px}
+  .shot-label .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+  .shot-fig.off{--accent:var(--offense)}
+  .shot-fig.def{--accent:var(--defense)}
+  .frame{
+    border:1px solid var(--border);border-radius:12px;overflow:hidden;
+    background:var(--panel);box-shadow:0 30px 80px -40px rgba(0,0,0,.9);
+  }
+  .shot-fig .frame{border-top:3px solid var(--accent)}
+  .frame img{width:100%;height:auto;display:block}
+  figcaption{color:var(--mute);font-size:13px;margin-top:14px}
+
+  /* --- section scaffold --- */
+  section.block{padding-block:64px}
+  .kicker{
+    font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--neutral);display:flex;align-items:center;gap:10px;margin-bottom:26px;
+  }
+  .kicker::before{content:"";width:22px;height:2px;background:var(--dzred)}
+  h2{font-weight:700;font-size:clamp(24px,3.4vw,32px);letter-spacing:-.015em;margin:0 0 8px;text-wrap:balance}
+  .section-intro{color:var(--mute);max-width:58ch;margin:0 0 34px}
+
+  /* --- triad --- */
+  .triad{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media (max-width:760px){ .triad{grid-template-columns:1fr} }
+  .card{
+    background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:24px;
+    border-top:3px solid var(--accent);
+  }
+  .card .tag{
+    font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent);
+  }
+  .card h3{font-size:18px;font-weight:700;margin:12px 0 8px}
+  .card p{color:var(--mute);font-size:14.5px;margin:0}
+  .card.off{--accent:var(--offense)}
+  .card.def{--accent:var(--defense)}
+  .card.sen{--accent:var(--sensor)}
+
+  /* --- steps --- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  @media (max-width:760px){ .steps{grid-template-columns:1fr} }
+  .step{padding:26px 24px;background:var(--panel);border-right:1px solid var(--border)}
+  .step:last-child{border-right:none}
+  @media (max-width:760px){ .step{border-right:none;border-bottom:1px solid var(--border)} .step:last-child{border-bottom:none} }
+  .step .n{font-family:var(--mono);font-size:13px;color:var(--dzred);font-weight:700}
+  .step h3{font-size:17px;font-weight:700;margin:14px 0 8px}
+  .step p{color:var(--mute);font-size:14px;margin:0}
+  .step code{font-family:var(--mono);font-size:13px;color:var(--neutral)}
+
+  /* --- statement --- */
+  .statement{border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .statement .wrap{padding-block:56px}
+  .statement p{font-size:clamp(20px,3vw,27px);font-weight:600;letter-spacing:-.01em;line-height:1.4;max-width:24ch;margin:0;text-wrap:balance}
+  .statement span{color:var(--mute)}
+
+  /* --- footer --- */
+  footer{padding-block:48px}
+  .foot{display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:space-between}
+  .foot-left{display:flex;align-items:center;gap:16px}
+  .foot img{height:26px;width:auto;opacity:.9}
+  .foot small{color:var(--mute);font-size:13px}
+  .foot-links{display:flex;gap:22px;font-size:14px}
+  .foot-links a{color:var(--neutral);text-decoration:none}
+  .foot-links a:hover{color:var(--ink)}
+  .license{color:var(--mute);font-size:12.5px;font-family:var(--mono);margin-top:22px}
+  .license a{color:var(--neutral);text-decoration:underline;text-underline-offset:3px}
+  .license a:hover{color:var(--ink)}
+
+  :focus-visible{outline:2px solid var(--defense);outline-offset:2px;border-radius:4px}
+  @media (prefers-reduced-motion: no-preference){ a,.copy,.btn{transition:all .15s ease} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="wordmark"><span class="bk">[</span>redStackPRO<span class="bk">]</span></div>
+    <nav class="nav-links">
+      <a href="#canvas">Canvas</a>
+      <a href="#how">How it works</a>
+      <a href="https://github.com/devZero-Security/redstackpro">Docs</a>
+      <a class="nav-cta" href="https://github.com/devZero-Security/redstackpro">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <figure class="hero-banner">
+        <img src="banner.png" width="2560" height="640"
+             alt="redStackPRO: red team infrastructure and cyber ranges">
+      </figure>
+      <span class="eyebrow">Validation range for red team operations</span>
+      <h1>Red team infrastructure, composed on a canvas.</h1>
+      <p class="lede">
+        redStackPRO is a visual canvas for red team infrastructure and cyber ranges.
+        Build a topology on the canvas, then export a complete, runnable working
+        directory of Terraform and Ansible. You run it from your own machine.
+        <b>redStackPRO never holds your cloud credentials.</b>
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/devZero-Security/redstackpro">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          View on GitHub
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/devZero-Security/redstackpro#run-with-docker">Read the quickstart</a>
+      </div>
+      <div class="cmd">
+        <span class="dollar">$</span>
+        <code id="cmd">docker run -p 8000:8000 ghcr.io/devzero-security/redstackpro:0.9.0</code>
+        <button class="copy" id="copy" type="button">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="shot" id="canvas">
+    <div class="wrap">
+      <div class="shot-head">
+        <div class="kicker">Attack and defense, one surface</div>
+        <h2>Compose your topology on the canvas.</h2>
+        <p class="section-intro">Offense and defense are the same tool, the same export, the same deploy. Draw the range yourself, or start from a shipped lab and edit it.</p>
+      </div>
+      <figure class="shot-fig off">
+        <div class="shot-label"><span class="dot"></span>Offense &middot; attack infrastructure</div>
+        <div class="frame">
+          <img src="offense-canvas.png" width="1760" height="1000"
+               alt="An offense topology on the redStackPRO canvas: a split-horizon C2 with Apache fronting Sliver and Nginx fronting Mythic, plus Adaptix, a jumpbox, operators, and an OpenSearch collector.">
+        </div>
+        <figcaption>A split-horizon C2: Apache fronting Sliver and Nginx fronting Mythic, plus Adaptix, a jumpbox, operators, and an OpenSearch collector.</figcaption>
+      </figure>
+      <figure class="shot-fig def">
+        <div class="shot-label"><span class="dot"></span>Defense &middot; target range</div>
+        <div class="frame">
+          <img src="defense-canvas.png" width="1760" height="1000"
+               alt="A defense topology on the redStackPRO canvas: the GOAD lab with the sevenkingdoms, north, and essos domains across two forests, five machines, and a jumpbox.">
+        </div>
+        <figcaption>The GOAD lab: the sevenkingdoms, north, and essos domains across two forests, with five machines and a jumpbox.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block" id="meanings">
+    <div class="wrap">
+      <div class="kicker">One canvas, three meanings</div>
+      <h2>Attack, target, and telemetry on the same canvas.</h2>
+      <p class="section-intro">
+        Every node is colored by what it does, so a range reads at a glance.
+        The three colors each mean one thing, and they hold that meaning everywhere.
+      </p>
+      <div class="triad">
+        <div class="card off">
+          <span class="tag">Offense</span>
+          <h3>Attack infrastructure</h3>
+          <p>Redirectors, request gating, and C2 blueprints for Mythic, Sliver, and Havoc. Proven on GCP and AWS.</p>
+        </div>
+        <div class="card def">
+          <span class="tag">Defense</span>
+          <h3>The target side</h3>
+          <p>Active Directory ranges, ACLs, and vulnerabilities. GOAD and other labs compile through the same pipeline.</p>
+        </div>
+        <div class="card sen">
+          <span class="tag">Sensor</span>
+          <h3>Telemetry and detection</h3>
+          <p>Collectors and log pipelines on either side of the house, so an operation leaves evidence you can inspect.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="how">
+    <div class="wrap">
+      <div class="kicker">From topology to range</div>
+      <h2>Design, download, deploy.</h2>
+      <p class="section-intro">
+        The canvas is a composition layer. It generates the working directory and hands it to you.
+        Nothing in that chain reaches your cloud on your behalf.
+        redStackPRO is API-first and agent-operable: an agent can read the schema and drive compose, validate, and compile over the local API and CLI.
+      </p>
+      <div class="steps">
+        <div class="step">
+          <div class="n">01 / Design</div>
+          <h3>Compose the topology</h3>
+          <p>Draw the range on the canvas, or start from a shipped lab like GOAD and edit it as a baseline.</p>
+        </div>
+        <div class="step">
+          <div class="n">02 / Download</div>
+          <h3>Compile the topology</h3>
+          <p>One topology becomes Terraform for the cloud and Ansible for the hosts, with a briefing on what is planted where.</p>
+        </div>
+        <div class="step">
+          <div class="n">03 / Deploy</div>
+          <h3>Run it yourself</h3>
+          <p>Fill in your variables and run <code>deploy.sh</code>. Your credentials stay on your machine throughout.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="statement">
+    <div class="wrap">
+      <p>A range to validate TTPs and tooling before an operation. <span>Not a course to learn them.</span></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-left">
+        <img src="devzero-white.png" alt="devZero Security">
+        <small>A devZero Security offering.</small>
+      </div>
+      <nav class="foot-links">
+        <a href="https://github.com/devZero-Security/redstackpro">GitHub</a>
+        <a href="https://github.com/devZero-Security/redstackpro#docs">Docs</a>
+        <a href="https://github.com/devZero-Security/redstackpro/blob/main/LICENSE">License</a>
+      </nav>
+    </div>
+    <div class="license">MIT licensed. GOAD range templates are derived from <a href="https://github.com/Orange-Cyberdefense/GOAD">Orange Cyberdefense's GOAD</a> and carry GPLv3.</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var btn=document.getElementById('copy');
+    var cmd=document.getElementById('cmd');
+    if(!btn||!cmd)return;
+    btn.addEventListener('click',function(){
+      var text=cmd.textContent.trim();
+      function done(){var o=btn.textContent;btn.textContent='Copied';setTimeout(function(){btn.textContent=o;},1400);}
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done).catch(select);
+      }else{select();}
+      function select(){
+        var r=document.createRange();r.selectNodeContents(cmd);
+        var s=window.getSelection();s.removeAllRanges();s.addRange(r);
+        try{document.execCommand('copy');done();}catch(e){}
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
