@@ -176,6 +176,9 @@
   .statement .wrap{padding-block:56px}
   .statement p{font-size:clamp(20px,3vw,27px);font-weight:600;letter-spacing:-.01em;line-height:1.4;max-width:24ch;margin:0;text-wrap:balance}
   .statement span{color:var(--mute)}
+  .statement .note{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--mute);margin-top:22px;max-width:56ch;line-height:1.6}
+  .statement .note a{color:var(--neutral);text-decoration:underline;text-underline-offset:3px}
+  .statement .note a:hover{color:var(--ink)}
 
   /* --- footer --- */
   footer{padding-block:48px}
@@ -202,7 +205,7 @@
     <nav class="nav-links">
       <a href="#canvas">Canvas</a>
       <a href="#how">How it works</a>
-      <a href="https://github.com/devZero-Security/redstackpro">Docs</a>
+      <a href="https://github.com/devZero-Security/redstackpro/wiki">Wiki</a>
       <a class="nav-cta" href="https://github.com/devZero-Security/redstackpro">GitHub</a>
     </nav>
   </div>
@@ -218,10 +221,10 @@
       <span class="eyebrow">Validation range for red team operations</span>
       <h1>Red team infrastructure, composed on a canvas.</h1>
       <p class="lede">
-        redStackPRO is a visual canvas for red team infrastructure and cyber ranges.
-        Build a topology on the canvas, then export a complete, runnable working
-        directory of Terraform and Ansible. You run it from your own machine.
-        <b>redStackPRO never holds your cloud credentials.</b>
+        redStackPRO is a visual canvas for professionals building production-grade
+        red team infrastructure and cyber ranges. Build a topology on the canvas, then
+        export a complete, runnable working directory of Terraform and Ansible. You run
+        it from your own machine. <b>redStackPRO never holds your cloud credentials.</b>
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href="https://github.com/devZero-Security/redstackpro">
@@ -324,6 +327,7 @@
   <section class="statement">
     <div class="wrap">
       <p>A range to validate TTPs and tooling before an operation. <span>Not a course to learn them.</span></p>
+      <p class="note">New to the craft? Start with <a href="https://github.com/BaddKharma/redStack">redStack</a>, the open lab for students and learners. redStackPRO is the professional edition, for operators who need production-grade range and C2 infrastructure.</p>
     </div>
   </section>
 </main>
@@ -333,11 +337,12 @@
     <div class="foot">
       <div class="foot-left">
         <img src="devzero-white.png" alt="devZero Security">
-        <small>A devZero Security offering.</small>
+        <small>A devZero Security Project.</small>
       </div>
       <nav class="foot-links">
         <a href="https://github.com/devZero-Security/redstackpro">GitHub</a>
-        <a href="https://github.com/devZero-Security/redstackpro#docs">Docs</a>
+        <a href="https://github.com/devZero-Security/redstackpro/wiki">Wiki</a>
+        <a href="https://github.com/BaddKharma/redStack">redStack (learners)</a>
         <a href="https://github.com/devZero-Security/redstackpro/blob/main/LICENSE">License</a>
       </nav>
     </div>
