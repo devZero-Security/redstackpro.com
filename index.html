@@ -8,11 +8,11 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://redstackpro.com/">
 <meta property="og:title" content="redStackPRO">
-<meta property="og:description" content="A visual canvas for red team infrastructure and cyber ranges. Compose a topology, export runnable Terraform and Ansible, deploy it from your own machine.">
+<meta property="og:description" content="A visual canvas for red team infrastructure and cyber ranges. Compose a topology, export runnable Terraform and Ansible, and deploy it from your own machine.">
 <meta property="og:image" content="https://redstackpro.com/banner-social.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="redStackPRO">
-<meta name="twitter:description" content="A visual canvas for red team infrastructure and cyber ranges.">
+<meta name="twitter:description" content="A visual canvas for red team infrastructure and cyber ranges. Compose a topology, export runnable Terraform and Ansible, and deploy it from your own machine.">
 <meta name="twitter:image" content="https://redstackpro.com/banner-social.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -176,9 +176,6 @@
   .statement .wrap{padding-block:56px}
   .statement p{font-size:clamp(20px,3vw,27px);font-weight:600;letter-spacing:-.01em;line-height:1.4;max-width:24ch;margin:0;text-wrap:balance}
   .statement span{color:var(--mute)}
-  .statement .note{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--mute);margin-top:22px;max-width:56ch;line-height:1.6}
-  .statement .note a{color:var(--neutral);text-decoration:underline;text-underline-offset:3px}
-  .statement .note a:hover{color:var(--ink)}
 
   /* --- footer --- */
   footer{padding-block:48px}
@@ -205,8 +202,8 @@
     <nav class="nav-links">
       <a href="#canvas">Canvas</a>
       <a href="#how">How it works</a>
-      <a href="https://github.com/devZero-Security/redstackpro/wiki">Wiki</a>
-      <a class="nav-cta" href="https://github.com/devZero-Security/redstackpro">GitHub</a>
+      <a href="https://github.com/devZero-Security/redStackPRO/wiki">Docs</a>
+      <a class="nav-cta" href="https://github.com/devZero-Security/redStackPRO">GitHub</a>
     </nav>
   </div>
 </header>
@@ -221,21 +218,21 @@
       <span class="eyebrow">Validation range for red team operations</span>
       <h1>Red team infrastructure, composed on a canvas.</h1>
       <p class="lede">
-        redStackPRO is a visual canvas for professionals building production-grade
-        red team infrastructure and cyber ranges. Build a topology on the canvas, then
-        export a complete, runnable working directory of Terraform and Ansible. You run
-        it from your own machine. <b>redStackPRO never holds your cloud credentials.</b>
+        redStackPRO is a visual canvas for red team infrastructure and cyber ranges.
+        Compose a topology, then export a complete, runnable working
+        directory of Terraform and Ansible. You run it from your own machine.
+        <b>redStackPRO never holds your cloud credentials.</b>
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/devZero-Security/redstackpro">
+        <a class="btn btn-primary" href="https://github.com/devZero-Security/redStackPRO">
           <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
           View on GitHub
         </a>
-        <a class="btn btn-ghost" href="https://github.com/devZero-Security/redstackpro#run-with-docker">Read the quickstart</a>
+        <a class="btn btn-ghost" href="https://github.com/devZero-Security/redStackPRO#-run-with-docker">Read the quickstart</a>
       </div>
       <div class="cmd">
         <span class="dollar">$</span>
-        <code id="cmd">docker run -p 8000:8000 ghcr.io/devzero-security/redstackpro:0.9.0</code>
+        <code id="cmd">docker run -p 8000:8000 -v redstackpro-data:/data ghcr.io/devzero-security/redstackpro:0.9.0</code>
         <button class="copy" id="copy" type="button">Copy</button>
       </div>
     </div>
@@ -269,17 +266,17 @@
 
   <section class="block" id="meanings">
     <div class="wrap">
-      <div class="kicker">One canvas, three meanings</div>
+      <div class="kicker">One canvas, three roles</div>
       <h2>Attack, target, and telemetry on the same canvas.</h2>
       <p class="section-intro">
         Every node is colored by what it does, so a range reads at a glance.
-        The three colors each mean one thing, and they hold that meaning everywhere.
+        Each color means one thing, and it holds that meaning everywhere.
       </p>
       <div class="triad">
         <div class="card off">
           <span class="tag">Offense</span>
           <h3>Attack infrastructure</h3>
-          <p>Redirectors, request gating, and C2 blueprints for Mythic, Sliver, and Havoc. Proven on GCP and AWS.</p>
+          <p>Redirectors, request gating, and C2 blueprints for Mythic, Sliver, and Adaptix. Tested on GCP and AWS.</p>
         </div>
         <div class="card def">
           <span class="tag">Defense</span>
@@ -289,7 +286,7 @@
         <div class="card sen">
           <span class="tag">Sensor</span>
           <h3>Telemetry and detection</h3>
-          <p>Collectors and log pipelines on either side of the house, so an operation leaves evidence you can inspect.</p>
+          <p>Collectors and log pipelines on the offense or defense side, so an operation leaves evidence you can inspect.</p>
         </div>
       </div>
     </div>
@@ -302,7 +299,7 @@
       <p class="section-intro">
         The canvas is a composition layer. It generates the working directory and hands it to you.
         Nothing in that chain reaches your cloud on your behalf.
-        redStackPRO is API-first and agent-operable: an agent can read the schema and drive compose, validate, and compile over the local API and CLI.
+        It also has an API and a command line, so an agent can read the schema and drive the compose, validate, and compile steps.
       </p>
       <div class="steps">
         <div class="step">
@@ -318,7 +315,7 @@
         <div class="step">
           <div class="n">03 / Deploy</div>
           <h3>Run it yourself</h3>
-          <p>Fill in your variables and run <code>deploy.sh</code>. Your credentials stay on your machine throughout.</p>
+          <p>Fill in your variables and run <code>deploy.sh</code>. Your credentials stay on your machine throughout. Every shipped lab has a written walkthrough in the <a href="https://github.com/devZero-Security/redStackPRO/wiki/Labs">wiki</a>.</p>
         </div>
       </div>
     </div>
@@ -326,8 +323,7 @@
 
   <section class="statement">
     <div class="wrap">
-      <p>A range to validate TTPs and tooling before an operation. <span>Not a course to learn them.</span></p>
-      <p class="note">New to the craft? Start with <a href="https://github.com/BaddKharma/redStack">redStack</a>, the open lab for students and learners. redStackPRO is the professional edition, for operators who need production-grade range and C2 infrastructure.</p>
+      <p>A range to validate TTPs and tooling before an operation. <span>Built for rehearsing them, not teaching them from scratch.</span></p>
     </div>
   </section>
 </main>
@@ -337,13 +333,13 @@
     <div class="foot">
       <div class="foot-left">
         <img src="devzero-white.png" alt="devZero Security">
-        <small>A devZero Security Project.</small>
+        <small>A devZero Security offering.</small>
       </div>
       <nav class="foot-links">
-        <a href="https://github.com/devZero-Security/redstackpro">GitHub</a>
-        <a href="https://github.com/devZero-Security/redstackpro/wiki">Wiki</a>
-        <a href="https://github.com/BaddKharma/redStack">redStack (learners)</a>
-        <a href="https://github.com/devZero-Security/redstackpro/blob/main/LICENSE">License</a>
+        <a href="https://github.com/devZero-Security/redStackPRO">GitHub</a>
+        <a href="https://github.com/devZero-Security/redStackPRO/wiki">Docs</a>
+        <a href="https://github.com/devZero-Security/redStackPRO/issues/new/choose">Report an issue</a>
+        <a href="https://github.com/devZero-Security/redStackPRO/blob/main/LICENSE">License</a>
       </nav>
     </div>
     <div class="license">MIT licensed. GOAD range templates are derived from <a href="https://github.com/Orange-Cyberdefense/GOAD">Orange Cyberdefense's GOAD</a> and carry GPLv3.</div>
