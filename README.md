@@ -1,4 +1,4 @@
-# redstackpro.dev
+# redstackpro.com
 
 The landing page for redStackPRO, served by GitHub Pages at the domain in `CNAME`.
 Static HTML, no build step. Edit `index.html` and push; Pages redeploys.
