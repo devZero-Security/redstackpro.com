@@ -332,16 +332,16 @@
         <figure class="shot-fig term term-run">
           <div class="shot-label"><span class="dot"></span>Deploy &middot; your terminal</div>
           <div class="frame">
-            <img src="terminal-deploy-hero.png" width="819" height="697" loading="lazy"
-                 alt="A PowerShell terminal in C:\redstackpro\my-range running .\deploy.ps1 for a five-host AD range on Azure eastus2 (GOAD-Light plus a Windows 11 workstation). Under the redStackPRO wordmark and the DEPLOY my-range header, step 1 of 8, preflight, reports 5 VMs on Standard_D2as_v7 with a quota of 10 of 10 vCPU, and step 2 of 8, Terraform apply, shows a plan of 47 to add followed by the first resources created, each with its time.">
+            <img src="terminal-deploy-hero.png" width="819" height="678" loading="lazy"
+                 alt="A PowerShell terminal in C:\ranges\goad-light running .\deploy.ps1 for GOAD-Light, a four-host Active Directory range on Azure eastus2. Under the redStackPRO wordmark and the DEPLOY GOAD-Light header, step 1 of 8, preflight, reports 4 VMs on Standard_D2as_v7 with a quota of 8 of 10 vCPU, and step 2 of 8, Terraform apply, shows a plan of 41 to add followed by the first resources created, each with its time.">
           </div>
-          <figcaption><code>deploy.ps1</code> on a five-host AD range in Azure (GOAD-Light plus a Windows 11 workstation): a preflight check of VM sizes and vCPU quota, then the Terraform plan and each resource as it is created.</figcaption>
+          <figcaption><code>deploy.ps1</code> for GOAD-Light, a four-host AD range in Azure: a preflight check of VM sizes and vCPU quota, then the Terraform plan and each resource as it is created.</figcaption>
         </figure>
         <figure class="shot-fig term term-done">
           <div class="shot-label"><span class="dot"></span>Done &middot; what to run next</div>
           <div class="frame">
             <img src="terminal-deploy-done.png" width="714" height="757" loading="lazy"
-                 alt="The end of the same deploy. Steps 3 to 8 each finish ok, from filling the inventory to launching provisioning on the jumpbox in a screen session that keeps going if you disconnect. A green DONE box reads: Infrastructure is up. Provisioning is running. It lists the Guacamole portal URL, the terraform output command for logins, the ssh command to watch provisioning, and that the run is finished when run.log shows RUN EXITED ok=1, in 45 to 75 minutes.">
+                 alt="The end of the same deploy. Steps 3 to 8 each finish ok, from filling the inventory to launching provisioning on the jumpbox in a screen session that keeps going if you disconnect. A green DONE box reads: Infrastructure is up. Provisioning is running. It lists the Guacamole portal URL, the terraform output command for logins, a one-line ssh command that runs rsp-watch to follow provisioning and return when the run ends, and that the run is finished when run.log shows RUN EXITED ok=1, in 45 to 75 minutes.">
           </div>
           <figcaption>The end of the same run: provisioning keeps going on the jumpbox in a screen session, and the DONE box gives the portal URL, the commands for logins and for watching the run, and how long it takes.</figcaption>
         </figure>
