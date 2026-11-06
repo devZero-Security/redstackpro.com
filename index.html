@@ -132,6 +132,16 @@
   .shot-fig .frame{border-top:3px solid var(--accent)}
   .frame img{width:100%;height:auto;display:block}
   figcaption{color:var(--mute);font-size:13px;margin-top:14px}
+  figcaption code{font-family:var(--mono);font-size:12px;color:var(--neutral)}
+
+  /* terminal shots: the PNG carries its own window chrome, so it sits on the panel at native size */
+  .term-figs{margin-top:48px}
+  .shot-fig.term{--accent:var(--neutral)}
+  .term .frame{padding:clamp(12px,4vw,44px)}
+  @media (max-width:620px){ .term .frame{padding:8px} }
+  .term .frame img{margin-inline:auto;filter:drop-shadow(0 18px 40px rgba(0,0,0,.55))}
+  .term-run .frame img{max-width:819px}
+  .term-done .frame img{max-width:714px}
 
   /* --- section scaffold --- */
   section.block{padding-block:64px}
@@ -317,6 +327,24 @@
           <h3>Run it yourself</h3>
           <p>Fill in <code>deploy.tfvars</code> and deploy with one command: <code>deploy.sh</code> on macOS or Linux, <code>deploy.ps1</code> on Windows. Your credentials stay on your machine, and teardown asks before it deletes anything. Every shipped target range has a written walkthrough, listed in the <a href="https://github.com/devZero-Security/redStackPRO/wiki/Labs">wiki</a>.</p>
         </div>
+      </div>
+      <div class="term-figs">
+        <figure class="shot-fig term term-run">
+          <div class="shot-label"><span class="dot"></span>Deploy &middot; your terminal</div>
+          <div class="frame">
+            <img src="terminal-deploy-hero.png" width="819" height="697" loading="lazy"
+                 alt="A PowerShell terminal running .\deploy.ps1 for a GOAD-Light range on Azure eastus2. Under the redStackPRO wordmark and the DEPLOY header, step 1 of 8, preflight, reports 5 VMs on Standard_D2as_v7 with a quota of 10 of 10 vCPU, and step 2 of 8, Terraform apply, shows a plan of 47 to add followed by the first resources created, each with its time.">
+          </div>
+          <figcaption><code>deploy.ps1</code> on a GOAD-Light range in Azure: a preflight check of VM sizes and vCPU quota, then the Terraform plan and each resource as it is created.</figcaption>
+        </figure>
+        <figure class="shot-fig term term-done">
+          <div class="shot-label"><span class="dot"></span>Done &middot; what to run next</div>
+          <div class="frame">
+            <img src="terminal-deploy-done.png" width="714" height="757" loading="lazy"
+                 alt="The end of the same deploy. Steps 3 to 8 each finish ok, from filling the inventory to launching provisioning on the jumpbox in a screen session that keeps going if you disconnect. A green DONE box reads: Infrastructure is up. Provisioning is running. It lists the Guacamole portal URL, the terraform output command for logins, the ssh command to watch provisioning, and that the run is finished when run.log shows RUN EXITED ok=1, in 45 to 75 minutes.">
+          </div>
+          <figcaption>The end of the same run: provisioning keeps going on the jumpbox in a screen session, and the DONE box gives the portal URL, the commands for logins and for watching the run, and how long it takes.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
