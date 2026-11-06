@@ -261,7 +261,7 @@
           <img src="offense-canvas.png" width="1760" height="1000"
                alt="An offense topology on the redStackPRO canvas: a split-horizon C2 with Apache fronting Sliver and Nginx fronting Mythic and Adaptix, plus a jumpbox, operators, and an OpenSearch collector.">
         </div>
-        <figcaption>A split-horizon C2: Apache fronting Sliver and Nginx fronting Mythic and Adaptix, plus a jumpbox, operators, and an OpenSearch collector.</figcaption>
+        <figcaption>A split-horizon C2: Apache fronting Sliver and Nginx fronting Mythic and Adaptix, plus a jumpbox, operators, and an OpenSearch collector. The two errors are the canvas validating as you build: the redirectors need a domain you control, set before deploy and caught here, not at apply time.</figcaption>
       </figure>
       <figure class="shot-fig def">
         <div class="shot-label"><span class="dot"></span>Defense &middot; target range</div>
@@ -332,7 +332,7 @@
         <figure class="shot-fig term term-run">
           <div class="shot-label"><span class="dot"></span>Deploy &middot; your terminal</div>
           <div class="frame">
-            <img src="terminal-deploy-hero.png" width="819" height="678" loading="lazy"
+            <img src="terminal-deploy-hero.png" width="819" height="680" loading="lazy"
                  alt="A PowerShell terminal in C:\ranges\goad-light running .\deploy.ps1 for GOAD-Light, a four-host Active Directory range on Azure eastus2. Under the redStackPRO wordmark and the DEPLOY GOAD-Light header, step 1 of 8, preflight, reports 4 VMs on Standard_D2as_v7 with a quota of 8 of 10 vCPU, and step 2 of 8, Terraform apply, shows a plan of 41 to add followed by the first resources created, each with its time.">
           </div>
           <figcaption><code>deploy.ps1</code> for GOAD-Light, a four-host AD range in Azure: a preflight check of VM sizes and vCPU quota, then the Terraform plan and each resource as it is created.</figcaption>
@@ -340,7 +340,7 @@
         <figure class="shot-fig term term-done">
           <div class="shot-label"><span class="dot"></span>Done &middot; what to run next</div>
           <div class="frame">
-            <img src="terminal-deploy-done.png" width="714" height="757" loading="lazy"
+            <img src="terminal-deploy-done.png" width="714" height="759" loading="lazy"
                  alt="The end of the same deploy. Steps 3 to 8 each finish ok, from filling the inventory to launching provisioning on the jumpbox in a screen session that keeps going if you disconnect. A green DONE box reads: Infrastructure is up. Provisioning is running. It lists the Guacamole portal URL, the terraform output command for logins, a one-line ssh command that runs rsp-watch to follow provisioning and return when the run ends, and that the run is finished when run.log shows RUN EXITED ok=1, in 45 to 75 minutes.">
           </div>
           <figcaption>The end of the same run: provisioning keeps going on the jumpbox in a screen session, and the DONE box gives the portal URL, the commands for logins and for watching the run, and how long it takes.</figcaption>
